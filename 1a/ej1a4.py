@@ -7,8 +7,7 @@ Funciones a desarrollar:
 - `create_task(title: str) -> int`:
     Descripción:
     Añade una nueva tarea al sistema con un estado inicial "Pendiente". La función genera un ID único para cada tarea,
-    lo asigna junto con el título proporcionado, y retorna el ID de la tarea creada, mantiene la siguiente estructura:
-    `tasks[id] = Task(id, title, TaskStatus.PENDING)`.
+    lo asigna junto con el título proporcionado, y retorna el ID de la tarea creada.
     Parámetros:
         - `title` (str): El título de la tarea a crear.
 
@@ -22,9 +21,7 @@ Funciones a desarrollar:
 
 - `list_tasks() -> None`:
     Descripción:
-    Imprime una lista de todas las tareas registradas, manteniendo el siguiente formato: "ID: {task.id},
-    Title: {task.title}, Status: {task.status.value}".
-
+    Imprime una lista de todas las tareas registradas, mostrando su ID, título y estado actual.
 
 Clases y Enums:
 - `TaskStatus(Enum)`: Define los posibles estados de una tarea, incluyendo "Pendiente", "En Progreso" y "Completada".
@@ -62,24 +59,28 @@ tasks: Dict[int, Task] = {}
 
 
 def create_task(title: str) -> int:
-    # Write here your code
-    pass
+    task_id = len(tasks) + 1
+    tasks[task_id] = Task(id=task_id, title=title, status=TaskStatus.PENDING)
+    return task_id
 
 
 def change_task_status(task_id: int, new_status: TaskStatus) -> bool:
-    # Write here your code
-    pass
+    if task_id in tasks:
+        task = tasks[task_id]
+        tasks[task_id] = task._replace(status=new_status)
+        return True
+    return False
 
 
 def list_tasks() -> None:
-    # Write here your code
-    pass
+    for task in tasks.values():
+        print(f"ID: {task.id}, Title: {task.title}, Status: {task.status.value}")
 
 
 # Para probar el código, descomenta las siguientes líneas 
-# if __name__ == "__main__":
-#     id1 = create_task("Learn Python")
-#     id2 = create_task("Read Enum documentation")
-#     change_task_status(id1, TaskStatus.IN_PROGRESS)
-#     change_task_status(id2, TaskStatus.COMPLETED)
-#     list_tasks()
+if __name__ == "__main__":
+    id1 = create_task("Learn Python")
+    id2 = create_task("Read Enum documentation")
+    change_task_status(id1, TaskStatus.IN_PROGRESS)
+    change_task_status(id2, TaskStatus.COMPLETED)
+    list_tasks()

@@ -46,30 +46,30 @@ from typing import List
 
 def mcd(a: int, b: int) -> int:
     while b:
-        
+        a, b = b, a % b
     return a
 
 
 def mcd_list(numbers: List[int]) -> int:
-    result = 
+    result = numbers[0]
     for number in numbers[1:]:
-        result = 
+        result = mcd(result, number)
     return result
 
 
 def mcm(a: int, b: int) -> int:
-    return 
+    return a * b // mcd(a, b)
 
 
 def mcm_list(numbers: List[int]) -> int:
-    result = 
+    result = numbers[0]
     for number in numbers[1:]:
-        result = 
+        result = mcm(result, number)
     return result
 
 
 # Para probar el código, descomenta las siguientes líneas
-# if __name__ == "__main__":
-    # numbers = [4, 6]
-    # print(f"The MCD of {numbers} is {mcd_list(numbers)}.")
-    # print(f"The MCM of {numbers} is {mcm_list(numbers)}.")
+if __name__ == "__main__":
+    numbers = [4, 6]
+    print(f"The MCD of {numbers} is {mcd_list(numbers)}.")
+    print(f"The MCM of {numbers} is {mcm_list(numbers)}.")
